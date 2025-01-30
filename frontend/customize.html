@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">AmarChat</div>
+            <div class="nav">
+                <a href="#about">About</a>
+                <a href="#rising">Rising</a>
+                <a href="#blog">Blog</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="black" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="customization-container">
+        <h1>Customize Your Chatbot</h1>
+        <p>Use the options below to customize your chatbot and review your changes live.</p>
+        <div class="options">
+            <h3>Customization Options</h3>
+            <label for="chatbot-name">Chatbot Name:</label>
+            <input type="text" id="chatbot-name" placeholder="Enter chatbot name">
+
+            <label for="logo-upload">Upload Logo:</label>
+            <input type="file" id="logo-upload">
+
+            <label for="color-theme">Color Theme:</label>
+            <select id="color-theme">
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+                <option value="red">Red</option>
+                <option value="purple">Purple</option>
+            </select>
+
+            <label for="welcome-message">Welcome Message:</label>
+            <input type="text" id="welcome-message" placeholder="Enter welcome message">
+
+            <button onclick="saveChatbot()">Save Changes</button>
+        </div>
+
+        <div class="drag-area">
+            <h3>Drag and Drop Features</h3>
+            <p>Drag and drop elements here to add them to your chatbot.</p>
+            <p>(Feature under development)</p>
+        </div>
+
+        <div class="preview">
+            <h3>Live Preview</h3>
+            <iframe src="about:blank" id="chatbot-preview"></iframe>
+        </div>
+    </div>
+    
+</body>
+</html>

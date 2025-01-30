@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Chatbot Customization</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --bot-bubble: #f3f4f6;
+            --user-bubble: #3b82f6;
+            --bubble-radius: 1.2rem;
+            --input-radius: 0.5rem;
+            --font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .preview-container {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .customization-panel {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-window {
+            width: 380px;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .chat-header {
+            background: var(--primary-color);
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            color: white;
+            transition: background 0.2s ease;
+        }
+
+        .chat-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .message-container {
+            height: 500px;
+            padding: 1.5rem;
+            background: #ffffff;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            padding: 1rem 1.5rem;
+            max-width: 75%;
+            line-height: 1.5;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .bot-message {
+            background: var(--bot-bubble);
+            border-radius: var(--bubble-radius) var(--bubble-radius) var(--bubble-radius) 4px;
+            align-self: flex-start;
+        }
+
+        .user-message {
+            background: var(--user-bubble);
+            color: white;
+            border-radius: var(--bubble-radius) var(--bubble-radius) 4px var(--bubble-radius);
+            align-self: flex-end;
+        }
+
+        .input-area {
+            padding: 1.5rem;
+            background: #f8fafc;
+            display: flex;
+            gap: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: var(--input-radius);
+            font-family: var(--font-family);
+            transition: all 0.2s ease;
+        }
+
+        .control-group {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .control-label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .color-picker-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .color-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .color-input {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid #cbd5e1;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .color-input:hover {
+            transform: scale(1.05);
+        }
+
+        .advanced-options {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-top: 2rem;
+        }
+
+        .save-button {
+            width: 100%;
+            padding: 1rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .save-button:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preview Section -->
+    <div class="preview-container">
+        <h2 style="margin-bottom: 2rem; color: #1e293b;">Live Preview</h2>
+        <div class="chat-window">
+            <div class="chat-header" id="headerPreview">
+                <img src="default-logo.png" class="chat-logo" alt="Chatbot Logo" id="logoPreview">
+                <div>
+                    <h3 style="margin: 0; font-weight: 600;">Assistant</h3>
+                    <p style="margin: 0; opacity: 0.9; font-size: 0.9em;">Online</p>
+                </div>
+            </div>
+            <div class="message-container">
+                <div class="message bot-message">Hello! How can I assist you today?</div>
+                <div class="message user-message">I'd like to customize my chatbot</div>
+                <div class="message bot-message">Great! You can modify colors, layout, and styling using the controls on the right.</div>
+            </div>
+            <div class="input-area">
+                <input type="text" class="chat-input" placeholder="Type your message..." id="inputPreview">
+                <button class="save-button" style="padding: 0.75rem 1.5rem;">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customization Panel -->
+    <div class="customization-panel">
+        <h2 style="margin-bottom: 2rem; color: #1e293b;">Design Studio</h2>
+        
+        <!-- Branding Section -->
+        <div class="control-group">
+            <label class="control-label">Branding</label>
+            <div class="color-picker-group">
+                <div class="color-option">
+                    <input type="color" class="color-input" id="primaryColor" data-target="primary-color">
+                    <span style="font-size: 0.9em;">Primary Color</span>
+                </div>
+                <div class="color-option">
+                    <input type="color" class="color-input" id="headerColor" data-target="header-color">
+                    <span style="font-size: 0.9em;">Header Color</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conversation Style -->
+        <div class="control-group">
+            <label class="control-label">Conversation Style</label>
+            <div class="color-picker-group">
+                <div class="color-option">
+                    <input type="color" class="color-input" id="botBubbleColor" data-target="bot-bubble">
+                    <span style="font-size: 0.9em;">Bot Bubble</span>
+                </div>
+                <div class="color-option">
+                    <input type="color" class="color-input" id="userBubbleColor" data-target="user-bubble">
+                    <span style="font-size: 0.9em;">User Bubble</span>
+                </div>
+            </div>
+            <div class="color-picker-group">
+                <div class="color-option">
+                    <input type="range" min="0" max="20" value="12" class="slider" id="bubbleRadius">
+                    <span style="font-size: 0.9em;">Bubble Radius</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Customization -->
+        <div class="control-group">
+            <label class="control-label">Input Styling</label>
+            <div class="color-picker-group">
+                <div class="color-option">
+                    <input type="color" class="color-input" id="inputBgColor">
+                    <span style="font-size: 0.9em;">Background</span>
+                </div>
+                <div class="color-option">
+                    <input type="color" class="color-input" id="inputBorderColor">
+                    <span style="font-size: 0.9em;">Border</span>
+                </div>
+            </div>
+            <div class="color-picker-group">
+                <div class="color-option">
+                    <input type="range" min="0" max="20" value="8" class="slider" id="inputRadius">
+                    <span style="font-size: 0.9em;">Border Radius</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Options -->
+        <div class="advanced-options">
+            <h3 style="margin-bottom: 1rem; color: #1e293b;">Advanced Settings</h3>
+            <div class="color-picker-group">
+                <div class="color-option">
+                    <input type="file" id="logoUpload" accept="image/*" style="display: none;">
+                    <label for="logoUpload" class="color-input" style="cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                        <span style="font-size: 1.2em;">📁</span>
+                    </label>
+                    <span style="font-size: 0.9em;">Upload Logo</span>
+                </div>
+                <div class="color-option">
+                    <select id="fontFamily" class="color-input" style="width: 120px; height: 40px; padding: 0 8px;">
+                        <option value="Segoe UI">Segoe UI</option>
+                        <option value="Arial">Arial</option>
+                        <option value="Helvetica">Helvetica</option>
+                    </select>
+                    <span style="font-size: 0.9em;">Font Family</span>
+                </div>
+            </div>
+        </div>
+
+        <button class="save-button" onclick="saveDesign()" style="margin-top: 2rem;">Save Design</button>
+    </div>
+
+    <script>
+        // Universal Update Handler
+        document.querySelectorAll('input[type="color"], input[type="range"], select').forEach(element => {
+            element.addEventListener('input', updateDesign);
+        });
+
+        // Logo Upload Handler
+        document.getElementById('logoUpload').addEventListener('change', function(e) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                document.getElementById('logoPreview').src = event.target.result;
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        function updateDesign() {
+            // Update CSS Variables
+            const root = document.documentElement.style;
+            
+            // Color Updates
+            root.setProperty('--primary-color', document.getElementById('primaryColor').value);
+            root.setProperty('--bot-bubble', document.getElementById('botBubbleColor').value);
+            root.setProperty('--user-bubble', document.getElementById('userBubbleColor').value);
+            
+            // Header Background
+            document.querySelector('.chat-header').style.backgroundColor = 
+                document.getElementById('headerColor').value;
+            
+            // Bubble Radius
+            root.setProperty('--bubble-radius', `${document.getElementById('bubbleRadius').value}px`);
+            
+            // Input Styling
+            const input = document.getElementById('inputPreview');
+            input.style.backgroundColor = document.getElementById('inputBgColor').value;
+            input.style.borderColor = document.getElementById('inputBorderColor').value;
+            input.style.borderRadius = `${document.getElementById('inputRadius').value}px`;
+            
+            // Font Family
+            root.setProperty('--font-family', document.getElementById('fontFamily').value);
+        }
+
+        function saveDesign() {
+            const designConfig = {
+                primaryColor: document.getElementById('primaryColor').value,
+                headerColor: document.getElementById('headerColor').value,
+                botBubble: document.getElementById('botBubbleColor').value,
+                userBubble: document.getElementById('userBubbleColor').value,
+                bubbleRadius: document.getElementById('bubbleRadius').value,
+                inputStyles: {
+                    background: document.getElementById('inputBgColor').value,
+                    border: document.getElementById('inputBorderColor').value,
+                    radius: document.getElementById('inputRadius').value
+                },
+                fontFamily: document.getElementById('fontFamily').value,
+                logo: document.getElementById('logoPreview').src
+            };
+
+            // Here you would typically send to backend
+            console.log('Design Configuration:', designConfig);
+            localStorage.setItem('chatbotDesign', JSON.stringify(designConfig));
+            alert('Design settings saved successfully!');
+        }
+
+        // Load saved design
+        window.addEventListener('load', () => {
+            const savedDesign = localStorage.getItem('chatbotDesign');
+            if (savedDesign) {
+                const config = JSON.parse(savedDesign);
+                Object.entries(config).forEach(([key, value]) => {
+                    if (key === 'inputStyles') {
+                        Object.entries(value).forEach(([styleKey, styleValue]) => {
+                            document.getElementById(`input${styleKey.charAt(0).toUpperCase() + styleKey.slice(1)}`).value = styleValue;
+                        });
+                    } else if (document.getElementById(key)) {
+                        document.getElementById(key).value = value;
+                    }
+                });
+                updateDesign();
+            }
+        });
+    </script>
+</body>
+</html>

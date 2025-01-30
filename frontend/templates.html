@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Template - AmarChat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">AmarChat</div>
+            <div class="nav">
+                <a href="#about">About</a>
+                <a href="#rising">Rising</a>
+                <a href="#blog">Blog</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="black" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <section class="templates">
+        <h2>Choose Your Business Template</h2>
+        <div class="template-grid">
+            <!-- Photography Template -->
+            <div class="template-card">
+                <div class="template-preview photography"></div>
+                <h3>Photography</h3>
+                <button onclick="selectTemplate('photography')">Select</button>
+            </div>
+
+            <!-- Healthcare Template -->
+            <div class="template-card">
+                <div class="template-preview healthcare"></div>
+                <h3>Healthcare</h3>
+                <button onclick="selectTemplate('healthcare')">Select</button>
+            </div>
+
+            <!-- Restaurant Template -->
+            <div class="template-card">
+                <div class="template-preview restaurant"></div>
+                <h3>Restaurant</h3>
+                <button onclick="selectTemplate('restaurant')">Select</button>
+            </div>
+
+            <!-- E-commerce Template -->
+            <div class="template-card">
+                <div class="template-preview ecommerce"></div>
+                <h3>E-commerce</h3>
+                <button onclick="selectTemplate('ecommerce')">Select</button>
+            </div>
+
+            <!-- Education Template -->
+            <div class="template-card">
+                <div class="template-preview education"></div>
+                <h3>Education</h3>
+                <button onclick="selectTemplate('education')">Select</button>
+            </div>
+
+            <!-- Real Estate Template -->
+            <div class="template-card">
+                <div class="template-preview realestate"></div>
+                <h3>Real Estate</h3>
+                <button onclick="selectTemplate('realestate')">Select</button>
+                
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
