@@ -1,16 +1,17 @@
-// backend/routes/chatbot.js
 import express from 'express';
-import db from '../config/db.js';
+import Chatbot from '../models/chatbot.js';
 
 const router = express.Router();
-const { Chatbot } = db.models;
 
+// POST route for creating a chatbot
 router.post('/', async (req, res) => {
   try {
-    const chatbot = await Chatbot.create(req.body);
-    res.json(chatbot);
+    const { name, template, settings } = req.body;
+    const newChatbot = await Chatbot.create({ name, template, settings });
+    res.status(201).json(newChatbot);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('❌ Error creating chatbot:', error);
+    res.status(500).json({ error: 'Failed to create chatbot.' });
   }
 });
 

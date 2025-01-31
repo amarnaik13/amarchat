@@ -57,7 +57,7 @@
             gap: 1rem;
             align-items: center;
             color: white;
-            transition: background 0.2s ease;
+            transition: backgroun 0.2s ease;
         }
 
         .chat-logo {
@@ -288,87 +288,6 @@
 
         <button class="save-button" onclick="saveDesign()" style="margin-top: 2rem;">Save Design</button>
     </div>
-
-    <script>
-        // Universal Update Handler
-        document.querySelectorAll('input[type="color"], input[type="range"], select').forEach(element => {
-            element.addEventListener('input', updateDesign);
-        });
-
-        // Logo Upload Handler
-        document.getElementById('logoUpload').addEventListener('change', function(e) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                document.getElementById('logoPreview').src = event.target.result;
-            }
-            reader.readAsDataURL(e.target.files[0]);
-        });
-
-        function updateDesign() {
-            // Update CSS Variables
-            const root = document.documentElement.style;
-            
-            // Color Updates
-            root.setProperty('--primary-color', document.getElementById('primaryColor').value);
-            root.setProperty('--bot-bubble', document.getElementById('botBubbleColor').value);
-            root.setProperty('--user-bubble', document.getElementById('userBubbleColor').value);
-            
-            // Header Background
-            document.querySelector('.chat-header').style.backgroundColor = 
-                document.getElementById('headerColor').value;
-            
-            // Bubble Radius
-            root.setProperty('--bubble-radius', `${document.getElementById('bubbleRadius').value}px`);
-            
-            // Input Styling
-            const input = document.getElementById('inputPreview');
-            input.style.backgroundColor = document.getElementById('inputBgColor').value;
-            input.style.borderColor = document.getElementById('inputBorderColor').value;
-            input.style.borderRadius = `${document.getElementById('inputRadius').value}px`;
-            
-            // Font Family
-            root.setProperty('--font-family', document.getElementById('fontFamily').value);
-        }
-
-        function saveDesign() {
-            const designConfig = {
-                primaryColor: document.getElementById('primaryColor').value,
-                headerColor: document.getElementById('headerColor').value,
-                botBubble: document.getElementById('botBubbleColor').value,
-                userBubble: document.getElementById('userBubbleColor').value,
-                bubbleRadius: document.getElementById('bubbleRadius').value,
-                inputStyles: {
-                    background: document.getElementById('inputBgColor').value,
-                    border: document.getElementById('inputBorderColor').value,
-                    radius: document.getElementById('inputRadius').value
-                },
-                fontFamily: document.getElementById('fontFamily').value,
-                logo: document.getElementById('logoPreview').src
-            };
-
-            // Here you would typically send to backend
-            console.log('Design Configuration:', designConfig);
-            localStorage.setItem('chatbotDesign', JSON.stringify(designConfig));
-            alert('Design settings saved successfully!');
-        }
-
-        // Load saved design
-        window.addEventListener('load', () => {
-            const savedDesign = localStorage.getItem('chatbotDesign');
-            if (savedDesign) {
-                const config = JSON.parse(savedDesign);
-                Object.entries(config).forEach(([key, value]) => {
-                    if (key === 'inputStyles') {
-                        Object.entries(value).forEach(([styleKey, styleValue]) => {
-                            document.getElementById(`input${styleKey.charAt(0).toUpperCase() + styleKey.slice(1)}`).value = styleValue;
-                        });
-                    } else if (document.getElementById(key)) {
-                        document.getElementById(key).value = value;
-                    }
-                });
-                updateDesign();
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -52,6 +52,7 @@ app.get('/api/templates', async (req, res) => {
   }
 });
 
+
 app.use('/api/chatbot', chatbotRoutes);
 
 // Start server
